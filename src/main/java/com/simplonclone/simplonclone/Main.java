@@ -10,18 +10,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
+
     public static void main(String[] args) {
-        ApprenantService apprenantService = new ApprenantService();
-        Apprenant apprenant = new Apprenant();
-        apprenant.setLastname("lname");
-        apprenant.setEmail("email");
-        apprenant.setPassword("pwd");
-        //apprenantService.add(apprenant);
-
-        System.out.println(apprenant);
-
-       List<Apprenant> list = apprenantService.getAll(10);
-        System.out.println(list.size());
+//        ApprenantService apprenantService = new ApprenantService();
+//        Apprenant apprenant = new Apprenant();
+//        apprenant.setFirstname("test");
+//        apprenant.setLastname("lname");
+//        apprenant.setEmail("email");
+//        apprenant.setPassword("pwd");
+//        apprenant.getPromosByPromoId();
+//        apprenantService.add(apprenant);
+//
+//        System.out.println(apprenant);
+//
+//       List<Apprenant> list = apprenantService.getAll();
+//        System.out.println(list.size());
 
     }
 

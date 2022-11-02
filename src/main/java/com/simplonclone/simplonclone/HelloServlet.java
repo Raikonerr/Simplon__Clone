@@ -21,7 +21,7 @@ public class HelloServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         ApprenantService apprenantService = new ApprenantService();
-        List<Apprenant> list = apprenantService.getAll(10);
+        List<Apprenant> list = apprenantService.getAll();
         request.setAttribute("apprenants",list);
         request.getRequestDispatcher("apprenants.jsp").forward(request,response);
     }

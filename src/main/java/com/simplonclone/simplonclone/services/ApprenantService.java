@@ -72,7 +72,7 @@ public class ApprenantService {
         return false;
     }
 
-    public List<Apprenant> getAll(int limit)
+    public List<Apprenant> getAll()
     {
         try{
 
@@ -93,6 +93,29 @@ public class ApprenantService {
             System.out.println(e.getMessage());
         }
         return null;
+    }
+
+
+    public void login(String email, String password)
+    {
+        try{
+            EntityManager em = Config.getConfig().getEntityManager();
+            em.getTransaction().begin();
+            TypedQuery<Apprenant> query = em.createQuery("SELECT a FROM Apprenant a WHERE a.email = :email AND a.password = :password", Apprenant.class);
+            query.setParameter("email", email);
+            query.setParameter("password", password);
+            List<Apprenant> list = query.getResultList();
+            em.getTransaction().commit();
+            if(list.size() > 0)
+            {
+                System.out.println("Login success");
+            }else{
+                System.out.println("Login failed");
+            }
+        }catch(Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
     }
 
 }
