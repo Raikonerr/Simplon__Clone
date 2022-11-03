@@ -72,12 +72,11 @@ public class FormateurService {
             return false;
         }
 
-        public List<Formateur> getAll(int limit)
+        public List<Formateur> getAll()
         {
             try{
                 EntityManager em = Config.getConfig().getEntityManager();
                 TypedQuery<Formateur> query = em.createQuery("SELECT f FROM Formateur f", Formateur.class);
-                query.setMaxResults(limit);
                 return query.getResultList();
             }catch(Exception e)
             {

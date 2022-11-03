@@ -71,7 +71,7 @@ public class PromoService {
             return false;
         }
 
-        public List<Promos> findAll()
+        public List<Promos> getAll()
         {
             try{
                 EntityManager em = Config.getConfig().getEntityManager();
