@@ -96,7 +96,7 @@ public class ApprenantService {
     }
 
 
-    public void login(String email, String password)
+    public Apprenant login(String email, String password)
     {
         try{
             EntityManager em = Config.getConfig().getEntityManager();
@@ -116,6 +116,7 @@ public class ApprenantService {
         {
             System.out.println(e.getMessage());
         }
+        return null;
     }
 
 }

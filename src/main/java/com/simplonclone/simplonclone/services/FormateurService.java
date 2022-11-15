@@ -85,5 +85,27 @@ public class FormateurService {
             return null;
         }
 
+        public Formateur login(String email, String password)
+        {
+          try{
+              EntityManager em = Config.getConfig().getEntityManager();
+              em.getTransaction().begin();
+              TypedQuery<Formateur> query = em.createQuery("SELECT f FROM Formateur f WHERE f.email = :email AND f.password = :password", Formateur.class);
+              query.setParameter("email", email);
+              query.setParameter("password", password);
+              List<Formateur> list = query.getResultList();
+              em.getTransaction().commit();
+              if(list.size() > 0)
+              {
+                  System.out.println("login success");
+              }else {
+                  System.out.println("Email ou mot de passe incorrect");
+              }
 
+          }catch (Exception e)
+          {
+              System.out.println(e.getMessage());
+          }
+            return null;
+        }
 }

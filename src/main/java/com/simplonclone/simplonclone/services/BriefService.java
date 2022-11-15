@@ -85,4 +85,18 @@ public class BriefService {
             return null;
         }
 
+        public List<Brief> findByPromo(int id)
+        {
+            try{
+                EntityManager em = Config.getConfig().getEntityManager();
+                TypedQuery<Brief> query = em.createQuery("SELECT b FROM Brief b WHERE b.promo.id = :id", Brief.class);
+                query.setParameter("id", id);
+                return query.getResultList();
+            }catch(Exception e)
+            {
+                System.out.println(e.getMessage());
+            }
+            return null;
+        }
+
 }

@@ -28,7 +28,7 @@ public class AdminServlet extends HttpServlet {
     request.setAttribute("formateurList", formateurList);
     request.setAttribute("promoList", promoList);
 
-    request.getRequestDispatcher("admin.jsp").forward(request, response);
+    request.getRequestDispatcher("WEB-INF/pages/admin.jsp").forward(request, response);
     }
 
     @Override
@@ -64,6 +64,65 @@ public class AdminServlet extends HttpServlet {
                     }
                     PromoService promoService = new PromoService();
                     promoService.update(newPromo);
+                    response.sendRedirect("AdminServlet");
+                }
+
+                case "addApprenant" ->{
+                    Apprenant newApprenant = new Apprenant();
+                    newApprenant.setFirstname(request.getParameter("firstname"));
+                    newApprenant.setLastname(request.getParameter("lastname"));
+                    newApprenant.setEmail(request.getParameter("email"));
+                    newApprenant.setPassword(request.getParameter("password"));
+                    newApprenant.setPromosByPromoId(new ArrayList<>());
+                    ApprenantService apprenantService = new ApprenantService();
+                    apprenantService.add(newApprenant);
+                    response.sendRedirect("AdminServlet");
+                }
+                case "deleteApprenant" -> {
+                    int id = Integer.parseInt(request.getParameter("id"));
+                    ApprenantService apprenantService = new ApprenantService();
+                    apprenantService.deleteByID(id);
+                    response.sendRedirect("AdminServlet");
+                }
+                case "updateApprenant" -> {
+                    int id = Integer.parseInt(request.getParameter("id"));
+                    Apprenant newApprenant = new Apprenant();
+                    newApprenant.setId(id);
+                    newApprenant.setFirstname(request.getParameter("firstname"));
+                    newApprenant.setLastname(request.getParameter("lastname"));
+                    newApprenant.setEmail(request.getParameter("email"));
+                    newApprenant.setPassword(request.getParameter("password"));
+                    newApprenant.setPromosByPromoId(new ArrayList<>());
+                    ApprenantService apprenantService = new ApprenantService();
+                    apprenantService.update(newApprenant);
+                    response.sendRedirect("AdminServlet");
+                }
+                case "addFormateur" ->{
+                    Formateur newFormateur = new Formateur();
+                    newFormateur.setFirstname(request.getParameter("firstname"));
+                    newFormateur.setLastname(request.getParameter("lastname"));
+                    newFormateur.setEmail(request.getParameter("email"));
+                    newFormateur.setPassword(request.getParameter("password"));
+                    FormateurService formateurService = new FormateurService();
+                    formateurService.add(newFormateur);
+                    response.sendRedirect("AdminServlet");
+                }
+                case "deleteFormateur" -> {
+                    int id = Integer.parseInt(request.getParameter("id"));
+                    FormateurService formateurService = new FormateurService();
+                    formateurService.deleteByID(id);
+                    response.sendRedirect("AdminServlet");
+                }
+                case "updateFormateur" -> {
+                    int id = Integer.parseInt(request.getParameter("id"));
+                    Formateur newFormateur = new Formateur();
+                    newFormateur.setId(id);
+                    newFormateur.setFirstname(request.getParameter("firstname"));
+                    newFormateur.setLastname(request.getParameter("lastname"));
+                    newFormateur.setEmail(request.getParameter("email"));
+                    newFormateur.setPassword(request.getParameter("password"));
+                    FormateurService formateurService = new FormateurService();
+                    formateurService.update(newFormateur);
                     response.sendRedirect("AdminServlet");
                 }
 

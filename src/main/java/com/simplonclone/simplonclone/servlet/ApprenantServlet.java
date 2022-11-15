@@ -17,7 +17,7 @@ public class ApprenantServlet extends HttpServlet {
       ApprenantService apprenantService = new ApprenantService();
       List<Apprenant> apprenants = apprenantService.getAll();
         request.setAttribute("apprenants", apprenants);
-        request.getRequestDispatcher("apprenant.jsp").forward(request, response);
+        request.getRequestDispatcher("apprenants.jsp").forward(request, response);
     }
 
     @Override
