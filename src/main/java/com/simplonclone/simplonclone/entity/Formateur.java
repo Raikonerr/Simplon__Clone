@@ -25,6 +25,10 @@ public class Formateur {
     @OneToMany(mappedBy = "formateurByFormateurId")
     private Collection<Promos> promosById;
 
+    //get name of the promo
+    public Collection<Promos> getPromos(){
+        return promosById;
+    }
     public int getId() {
         return id;
     }
@@ -95,7 +99,11 @@ public class Formateur {
         return promosById;
     }
 
+
+
     public void setPromosById(Collection<Promos> promosById) {
         this.promosById = promosById;
     }
+
+
 }

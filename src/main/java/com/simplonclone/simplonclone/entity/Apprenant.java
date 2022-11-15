@@ -95,6 +95,7 @@ public class Apprenant {
     public Collection<Promos> getPromosByPromoId() {
         return this.promosByPromoId;
     }
+    
 
     public void setPromosByPromoId(Collection<Promos> promosByPromoId) {
         this.promosByPromoId = promosByPromoId;

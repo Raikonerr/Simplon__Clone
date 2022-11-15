@@ -36,14 +36,10 @@ public class AdminServlet extends HttpServlet {
         if (request.getParameter("action") != null){
             switch(request.getParameter("action")){
                 case "addPromo" -> {
-                    Promos newPromo = new Promos();
-                    newPromo.setName(request.getParameter("name"));
-                    int formateurId = Integer.parseInt(request.getParameter("formateurId"));
-                    if(formateurId != 0){
-                        newPromo.setFormateurId(formateurId);
-                    }
-                    PromoService promoService = new PromoService();
-                    promoService.add(newPromo);
+                    PromoService PromoService = new PromoService();
+                    Promos promo = new Promos();
+                    promo.setName(request.getParameter("name"));
+                    PromoService.add(promo);
                     response.sendRedirect("AdminServlet");
 
                 }

@@ -20,6 +20,8 @@ public class Promos {
             inverseJoinColumns = @JoinColumn(name = "apprenantId")
     )
     private Collection<Apprenant> apprenantsPerPromo;
+
+
     @OneToMany(mappedBy = "promosByPromoId")
     private Collection<Brief> briefsById;
     @ManyToOne
@@ -96,4 +98,6 @@ public class Promos {
     public void setApprenantsPerPromo(Collection<Apprenant> apprenantsPerPromo) {
         this.apprenantsPerPromo = apprenantsPerPromo;
     }
+
+
 }

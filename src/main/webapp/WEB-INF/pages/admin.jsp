@@ -7,6 +7,8 @@
 --%>
 <%@ page import="com.simplonclone.simplonclone.entity.*" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.stream.Collectors" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -22,19 +24,17 @@
 <body class="bg-[#F0F0F0]">
 <%@include file="../components/header.jsp"%>
 <%
-    List<Promos> promosList = (List<Promos>) request.getAttribute("promosList");
+    List<Promos> promosList = (List<Promos>) request.getAttribute("promoList");
     List<Apprenant> apprenantList = (List<Apprenant>) request.getAttribute("apprenantList");
     List<Formateur> formateurList = (List<Formateur>) request.getAttribute("formateurList");
 %>
 
 <div class="w-full h-auto flex flex-row-reverse pt-[18vh]">
     <div class="flex flex-col justify-end w-[10%] h-[70vh] fixed px-[20px] pb-16 z-[10]">
-        <button type="button"  data-bs-toggle="modal" data-bs-target="#addF" class="btn border-0 bg-red-600 my-6">Ajouter Formateur</button>
         <a href="#addA" class="btn border-0 bg-red-600 my-6">Ajouter Apprenant</a>
         <a href="#addP" class="btn border-0 bg-red-600 my-6">Ajouter Promo</a>
         <a href="#addF" class="btn border-0 bg-red-600 my-6">Ajouter Formateur</a>
     </div>
-
 </div>
 
 <div class="modal" id="addF">
@@ -70,6 +70,10 @@
 </div>
 <div class="modal" id="addA">
     <div class="modal-box px-14">
+        <a href="AdminServlet" type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-toggle="#addF">
+            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+            <span class="sr-only">Close modal</span>
+        </a>
         <form action="../AdminServlet" method="post">
             <H1 class=" font-medium leading-tight text-xl mt-10 mb-2 text-gray-600 text-center">Ajouter un Apprenant</H1>
             <div class="relative z-0 mb-6 mt-10 w-full group">
@@ -97,11 +101,15 @@
 </div>
 <div class="modal" id="addP">
     <div class="modal-box">
+        <a href="AdminServlet" type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-toggle="#addF">
+            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+            <span class="sr-only">Close modal</span>
+        </a>
         <form action="../AdminServlet" method="post">
             <H1 class="font-medium leading-tight text-xl mt-0 mb-2 text-gray-600 text-center">Create Promo</H1>
             <div class="relative z-0 mb-6 w-full group">
-                <input type="text" name="name" value="" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-                <label for="nom" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email address</label>
+                <%--@declare id=""--%><input type="text" name="name" value="" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                <label for="" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email address</label>
             </div>
             <input type="hidden" name="action" value="addPromo">
             <input class="inline-block px-6 py-2.5 bg-gray-800 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-gray-900 hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out" type="submit" value="submit"/>
@@ -129,13 +137,12 @@
                     <th class="p-3 text-center">Last Name</th>
                     <th class="p-3 text-center">Email</th>
                     <th class="p-3 text-center">Promo</th>
-                    <th class="p-3 text-center">Assign to promo</th>
                 </tr>
                 </thead>
                 <tbody class="border-y dark:bg-gray-900 dark:border-gray-700 ">
 
 
-                <% ArrayList<Formateur> formateurs = (ArrayList<Formateur>) request.getAttribute("formateurs");
+                <% ArrayList<Formateur> formateurs = (ArrayList<Formateur>) request.getAttribute("formateurList");
                     for (Formateur formateur : formateurs) {%>
 
                 <tr>
@@ -149,94 +156,11 @@
                         <p><%=formateur.getEmail()%></p>
                     </td>
                     <td class="px-3 py-2 text-center">
-                        <%if (formateur.getPromosByPromoId() != null) {%>
-                        <p><%=formateur.getPromosByPromoId().getName()%></p>
+                        <%if (formateur.getPromos() != null) {%>
+                        <p><%=formateur.getPromos().stream().map(Promos::getName).collect(Collectors.joining(","))%></p>
                         <%} else {%>
-                        <p>Not assigned</p>
+                        <p>None</p>
                         <%}%>
-                    </td>
-                    <td class="px-3 py-2 text-center">
-
-                        <form action="/AdminServlet" method="post" class="flex w-[16rem]">
-                            <input type="hidden" name="action" value="assignFormateurToPromo">
-                            <input type="hidden" name="formateurId" value="<%=formateur.getId()%>">
-                            <select name="promoId" class="mr-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option value="0">Select a promo</option>
-                                <% ArrayList<Promos> promos = (ArrayList<Promos>) request.getAttribute("promos");
-                                    for (Promos promo : promos) {%>
-                                <option value="<%=promo.getId()%>"><%=promo.getName()%></option>
-                                <%}%>
-                            </select>
-                            <button type="submit" class="px-3 py-1 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-black border border-transparent rounded-lg active:bg-gray-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue">Assign</button>
-                        </form>
-
-                    </td>
-                </tr>
-
-                <%}%>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <%--    Apprenant Table--%>
-    <div class="container p-[4rem] mx-auto dark:text-gray-100 mt-16 bg-white rounded-xl shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]" id="Apprenant">
-        <h2 class="mb-4 mt-[1rem] text-2xl font-semibold leading-tight">Apprenant Table</h2>
-        <div class="overflow-x-auto">
-            <table class="w-full p-6 text-xs text-left whitespace-nowrap">
-                <colgroup>
-                    <col class="w-5">
-                    <col>
-                    <col>
-                    <col>
-                    <col class="w-5">
-                </colgroup>
-                <thead>
-                <tr class="dark:bg-gray-700">
-                    <th class="p-3 text-center">First Name</th>
-                    <th class="p-3 text-center">Last Name</th>
-                    <th class="p-3 text-center">Email</th>
-                    <th class="p-3 text-center">Promo</th>
-                    <th class="p-3 text-center">Assign to promo</th>
-                </tr>
-                </thead>
-                <tbody class="border-y dark:bg-gray-900 dark:border-gray-700 ">
-
-
-                <% ArrayList<Apprenant> apprenants = (ArrayList<Apprenant>) request.getAttribute("apprenants");
-                    for (Apprenant apprenant : apprenants) {%>
-
-                <tr>
-                    <td class="px-3 py-2 text-center">
-                        <p><%=apprenant.getFirstname()%></p>
-                    </td>
-                    <td class="px-3 py-2 text-center">
-                        <span><%=apprenant.getLastname()%></span>
-                    </td>
-                    <td class="px-3 py-2 text-center">
-                        <p><%=apprenant.getEmail()%></p>
-                    </td>
-                    <td class="px-3 py-2 text-center">
-                        <%if (apprenant.getPromosByPromoId() != null) {%>
-                        <p><%=apprenant.getPromosByPromoId().getName()%></p>
-                        <%} else {%>
-                        <p>Not assigned</p>
-                        <%}%>
-                    </td>
-                    <td class="px-3 py-2 text-center">
-
-                        <form action="/AdminServlet" method="post" class="flex w-[16rem]">
-                            <input type="hidden" name="action" value="assignApprenantToPromo">
-                            <input type="hidden" name="apprenantId" value="<%=apprenant.getId()%>">
-                            <select name="promoId" class="mr-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option value="0">Select a promo</option>
-                                <% ArrayList<Promos> promos = (ArrayList<Promos>) request.getAttribute("promos");
-                                    for (Promos promo : promos) {%>
-                                <option value="<%=promo.getId()%>"><%=promo.getName()%></option>
-                                <%}%>
-                            </select>
-                            <button type="submit" class="px-3 py-1 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-black border border-transparent rounded-lg active:bg-blue-600 hover:bg-gray-700 focus:outline-none focus:shadow-outline-blue">Assign</button>
-                        </form>
                     </td>
                 </tr>
 
@@ -247,36 +171,119 @@
     </div>
 
     <%--    Promo Table--%>
-    <div class="container p-[5rem] mx-auto dark:text-gray-100 mt-16 mb-16 bg-white rounded-xl shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]" id="Promo">
-        <h2 class="mb-4 text-2xl font-semibold leading-tight">Promos Table</h2>
-        <div class="overflow-x-auto">
-            <table class="w-full p-6 text-xs text-left whitespace-nowrap">
-                <colgroup>
-                    <col class="w-5">
-                    <col class="w-5">
-                </colgroup>
-                <thead>
-                <tr class="dark:bg-gray-700">
-                    <th class="p-3">Name</th>
-                </tr>
-                </thead>
-                <tbody class="border-y dark:bg-gray-900 dark:border-gray-700 ">
+        <div class="container p-[5rem] mx-auto dark:text-gray-100 mt-16 mb-16 bg-white rounded-xl shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]" id="Promo">
+            <h2 class="mb-4 text-2xl font-semibold leading-tight">Promos Table</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full p-6 text-xs text-left whitespace-nowrap">
+                    <colgroup>
+                        <col class="w-5">
+                        <col class="w-5">
+                    </colgroup>
+                    <thead>
+                    <tr class="dark:bg-gray-700">
+                        <th class="p-3">Name</th>
+                        <th class="p-3">formateurs</th>
+                    </tr>
+                    </thead>
+                    <tbody class="border-y dark:bg-gray-900 dark:border-gray-700 ">
+
+                    <% for (Promos promo : promosList) {%>
+
+                    <tr>
+                        <td class="px-3 py-2">
+                            <p><%=promo.getName()%></p>
+                        </td>
+                        <td class="px-3 py-2 text-center">
+
+                            <form action="/AdminServlet" method="post" class="flex w-[16rem]">
+                                <input type="hidden" name="action" value="assignFormateurToPromo">
+                                <select name="formateurId" class="mr-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    <option value="0">Select a formateur</option>
+                                    <%
+                                        for (Formateur formateur : formateurList) {
+                                          %>
+                                    <option value="<%=formateur.getId()%>"><%=formateur.getFirstname() +" " + formateur.getLastname()%></option>
+                                    <%}%>
+                                </select>
+                                <button type="submit" class="px-3 py-1 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-black border border-transparent rounded-lg active:bg-gray-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue">Assign</button>
+                            </form>
+
+                        </td>
+                    </tr>
 
 
-                <% ArrayList<Promos> promos = (ArrayList<Promos>) request.getAttribute("promos");
-                    for (Promos promo : promos) {%>
-
-                <tr>
-                    <td class="px-3 py-2">
-                        <p><%=promo.getName()%></p>
-                    </td>
-                </tr>
-
-                <%}%>
-                </tbody>
-            </table>
+                    <%}%>
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
+
+        <%--    Apprenant Table--%>
+        <div class="container p-[4rem] mx-auto dark:text-gray-100 mt-16 bg-white rounded-xl shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]" id="Apprenant">
+            <h2 class="mb-4 mt-[1rem] text-2xl font-semibold leading-tight">Apprenant Table</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full p-6 text-xs text-left whitespace-nowrap">
+                    <colgroup>
+                        <col class="w-5">
+                        <col>
+                        <col>
+                        <col>
+                        <col class="w-5">
+                    </colgroup>
+                    <thead>
+                    <tr class="dark:bg-gray-700">
+                        <th class="p-3 text-center">First Name</th>
+                        <th class="p-3 text-center">Last Name</th>
+                        <th class="p-3 text-center">Email</th>
+                        <th class="p-3 text-center">Promo</th>
+                        <th class="p-3 text-center">Assign to promo</th>
+                    </tr>
+                    </thead>
+                    <tbody class="border-y dark:bg-gray-900 dark:border-gray-700 ">
+
+
+                    <% ArrayList<Apprenant> apprenants = (ArrayList<Apprenant>) request.getAttribute("apprenantList");
+                        for (Apprenant apprenant : apprenants) {%>
+
+                    <tr>
+                        <td class="px-3 py-2 text-center">
+                            <p><%=apprenant.getFirstname()%></p>
+                        </td>
+                        <td class="px-3 py-2 text-center">
+                            <span><%=apprenant.getLastname()%></span>
+                        </td>
+                        <td class="px-3 py-2 text-center">
+                            <p><%=apprenant.getEmail()%></p>
+                        </td>
+                        <td class="px-3 py-2 text-center">
+                            <%if (apprenant.getPromosByPromoId() != null) {%>
+                            <p><%=apprenant.getPromosByPromoId()%></p>
+                            <%} else {%>
+                            <p>Not assigned</p>
+                            <%}%>
+                        </td>
+                        <td class="px-3 py-2 text-center">
+
+                            <form action="/AdminServlet" method="post" class="flex w-[16rem]">
+                                <input type="hidden" name="action" value="assignApprenantToPromo">
+                                <input type="hidden" name="apprenantId" value="<%=apprenant.getId()%>">
+                                <select name="promoId" class="mr-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    <option value="0">Select a promo</option>
+                                    <%
+                                        for (Promos promo : promosList) {%>
+                                    <option value="<%=promo.getId()%>"><%=promo.getName()%></option>
+                                    <%}%>
+                                </select>
+                                <button type="submit" class="px-3 py-1 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-black border border-transparent rounded-lg active:bg-blue-600 hover:bg-gray-700 focus:outline-none focus:shadow-outline-blue">Assign</button>
+                            </form>
+                        </td>
+                    </tr>
+
+                    <%}%>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 </div>
 
 <div class=" flex justify-end items-end w-[15%] h-[70vh] top-[10vh] left-[0] fixed z-[1]">
@@ -293,4 +300,4 @@
 </html>
 
 
-<%@include file="../components/footer.jsp"%>
+
